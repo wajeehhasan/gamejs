@@ -29,6 +29,15 @@ document.querySelector('.btn-new').addEventListener('click',function ()
                                                 document.querySelector('#current-1').textContent=default_state;
                                                 document.querySelector('#score-1').textContent=default_state;
                                                 document.querySelector('#score-0').textContent=default_state;
+                                                if(document.querySelector('.player-0-panel').classList.contains('active')=== true )
+                                                    {
+                                                        
+                                                    }
+                                                else
+                                                    {
+                                                        document.querySelector('.player-1-panel').classList.toggle('active')
+                                                        document.querySelector('.player-0-panel').classList.toggle('active');
+                                                    }
 
                                             }
                                          )
