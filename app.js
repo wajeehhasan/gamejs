@@ -36,28 +36,32 @@ function btn()
     {
         document.querySelector('.dice').style.display='block';
         var dice = Math.floor(Math.random()*6)+1;
+        
         if(dice===1)
             {
-                //document.querySelector('.dice').style.display='none';
+                document.querySelector('.dice').src='dice-'+dice+'.png';
+                document.querySelector('.dice').style.display='none';
                 document.querySelector('#current-'+current_player).textContent=0;
-       
+                
                 if(current_player===0)
                     {
                         current_player=1;
+                        
                     }
                 else if(current_player===1)
                     {
                         current_player=0;
                     }
                 current_score=0;
+                player_change();
+                
             }
         else
             {
                 current_score+=dice;
+                document.querySelector('#current-'+current_player).textContent=current_score;
+                document.querySelector('.dice').src='dice-'+dice+'.png';
             }
-        
-        document.querySelector('#current-'+current_player).textContent=current_score;
-        document.querySelector('.dice').src='dice-'+dice+'.png';
 
     }
 function hld()
@@ -83,7 +87,7 @@ function hld()
                 win_con();
             }
         document.querySelector('#current-'+current_player).textContent=0;
-
+        player_change();
         if(current_player===0)
             {
                 current_player=1;
@@ -99,14 +103,14 @@ function player_change()
     {
         if(current_player===0)
            {
-                document.querySelector('player-0-panel').classList.remove('active');
-               document.querySelector('player-1-panel').classList.add('active');
+                 document.querySelector('.player-0-panel').classList.toggle('active');
+               document.querySelector('.player-1-panel').classList.toggle('active');
                
            }
         else if (current_player===1)
             {
-                document.querySelector('player-1-panel').classList.remove('active');
-                document.querySelector('player-0-panel').classList.add('active');
+                document.querySelector('.player-0-panel').classList.toggle('active');
+               document.querySelector('.player-1-panel').classList.toggle('active');
             }
     }
 
