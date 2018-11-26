@@ -8,39 +8,39 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-default_state=0;
-document.querySelector('#current-0').textContent=default_state;
-document.querySelector('#current-1').textContent=default_state;
-document.querySelector('#score-1').textContent=default_state;
-document.querySelector('#score-0').textContent=default_state;
-total_score=[0,0];
-current_score=0;
-current_player=0;
+var default_state=0;
+var temp_score=0;
+var total_score=[0,0];
+var current_score=0;
+var current_player=0;
+var wining_threshold=20;
 document.querySelector('.btn-roll').addEventListener('click',btn);
 document.querySelector('.dice').style.display='none';
 document.querySelector('.btn-hold').addEventListener('click',hld);
-document.querySelector('.btn-new').addEventListener('click',function () 
-                                            {   
-                                                total_score=[0,0];
-                                                current_score=0;
-                                                current_player=0;
-                                                document.querySelector('.dice').style.display='none';
-                                                document.querySelector('#current-0').textContent=default_state;
-                                                document.querySelector('#current-1').textContent=default_state;
-                                                document.querySelector('#score-1').textContent=default_state;
-                                                document.querySelector('#score-0').textContent=default_state;
-                                                if(document.querySelector('.player-0-panel').classList.contains('active')=== true )
-                                                    {
-                                                        
-                                                    }
-                                                else
-                                                    {
-                                                        document.querySelector('.player-1-panel').classList.toggle('active')
-                                                        document.querySelector('.player-0-panel').classList.toggle('active');
-                                                    }
+document.querySelector('.btn-new').addEventListener('click',default_state_init())
+function default_state_init() 
+    {   
+        total_score=[0,0];
+        current_score=0;
+        current_player=0;
+        temp_score=0;
+        document.querySelector('.dice').style.display='none';
+        document.querySelector('#current-0').textContent=default_state;
+        document.querySelector('#current-1').textContent=default_state;
+        document.querySelector('#score-1').textContent=default_state;
+        document.querySelector('#score-0').textContent=default_state;
+        if(document.querySelector('.player-0-panel').classList.contains('active')=== true )
+            {
 
-                                            }
-                                         )
+            }
+        else
+            {
+                document.querySelector('.player-1-panel').classList.toggle('active')
+                document.querySelector('.player-0-panel').classList.toggle('active');
+            }
+
+    }
+
 function btn()
     {
         document.querySelector('.dice').style.display='block';
@@ -51,16 +51,7 @@ function btn()
                 document.querySelector('.dice').src='dice-'+dice+'.png';
                 document.querySelector('.dice').style.display='none';
                 document.querySelector('#current-'+current_player).textContent=0;
-                
-                if(current_player===0)
-                    {
-                        current_player=1;
-                        
-                    }
-                else if(current_player===1)
-                    {
-                        current_player=0;
-                    }
+                current_player===0 ? current_player=1 : current_player=0;
                 current_score=0;
                 player_change();
                 
@@ -73,6 +64,26 @@ function btn()
             }
 
     }
+function win_con()  
+            {
+                if(total_score[current_player]>=wining_threshold)
+                    {
+                        window.alert('Player '+(current_player+1)+' wins')
+                        document.querySelector('#current-0').textContent=default_state;
+                        document.querySelector('#current-1').textContent=default_state;
+                        document.querySelector('#score-1').textContent=default_state;
+                        document.querySelector('#score-0').textContent=default_state;
+                        total_score=[0,0];
+                        current_score=0;
+                        current_player=0;
+                        current_player===1 ? current_player=0 : current_player=0;
+                    }
+            }
+function win_class_init() 
+        {
+            
+        }
+
 function hld()
     {
         document.querySelector('.dice').style.display='none';
@@ -80,31 +91,10 @@ function hld()
         document.querySelector('#score-'+current_player).textContent=total_score[current_player];
         document.querySelector('#current-'+current_player).textContent=current_score;
         current_score=0;
-        function win_con()  
-            {
-                window.alert('Player '+(current_player+1)+' wins');
-                document.querySelector('#current-0').textContent=default_state;
-                document.querySelector('#current-1').textContent=default_state;
-                document.querySelector('#score-1').textContent=default_state;
-                document.querySelector('#score-0').textContent=default_state;
-                total_score=[0,0];
-                current_score=0;
-                current_player=0;
-            }
-        if(total_score[current_player]>=20)
-            {
-                win_con();
-            }
+        win_con();
         document.querySelector('#current-'+current_player).textContent=0;
         player_change();
-        if(current_player===0)
-            {
-                current_player=1;
-            }
-        else if(current_player===1)
-            {
-                current_player=0;
-            }
+        current_player===0 ? current_player=1 : current_player=0;
         
     }
 
