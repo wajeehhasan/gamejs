@@ -18,6 +18,21 @@ document.querySelector('.btn-roll').addEventListener('click',btn);
 document.querySelector('.dice').style.display='none';
 document.querySelector('.btn-hold').addEventListener('click',hld);
 document.querySelector('.btn-new').addEventListener('click',default_state_init())
+function default_player()
+    {
+    
+        if(document.querySelector('.player-0-panel').classList.contains('active')=== true )
+            {
+
+            }
+        else if(document.querySelector('.player-1-panel').classList.contains('active')=== true)
+            {
+                document.querySelector('.player-1-panel').classList.toggle('active');
+                document.querySelector('.player-0-panel').classList.toggle('active');
+            }
+
+        
+    }
 function default_state_init() 
     {   
         total_score=[0,0];
@@ -29,15 +44,7 @@ function default_state_init()
         document.querySelector('#current-1').textContent=default_state;
         document.querySelector('#score-1').textContent=default_state;
         document.querySelector('#score-0').textContent=default_state;
-        if(document.querySelector('.player-0-panel').classList.contains('active')=== true )
-            {
-
-            }
-        else
-            {
-                document.querySelector('.player-1-panel').classList.toggle('active')
-                document.querySelector('.player-0-panel').classList.toggle('active');
-            }
+        default_player();
 
     }
 
@@ -48,6 +55,7 @@ function btn()
         
         if(dice===1)
             {
+                
                 document.querySelector('.dice').src='dice-'+dice+'.png';
                 document.querySelector('.dice').style.display='none';
                 document.querySelector('#current-'+current_player).textContent=0;
@@ -69,18 +77,18 @@ function win_con()
                 if(total_score[current_player]>=wining_threshold)
                     {
                         window.alert('Player '+(current_player+1)+' wins')
-                        document.querySelector('#current-0').textContent=default_state;
-                        document.querySelector('#current-1').textContent=default_state;
-                        document.querySelector('#score-1').textContent=default_state;
-                        document.querySelector('#score-0').textContent=default_state;
-                        total_score=[0,0];
-                        current_score=0;
-                        current_player=0;
-                        current_player===1 ? current_player=0 : current_player=0;
+                        default_state_init();
                     }
+               
             }
 function win_class_init() 
         {
+            document.querySelector('.player-1-panel').classList.remove('active');
+            document.querySelector('.player-0-panel').classList.remove('active');
+            document.querySelector('.player-'+current_player+'-panel').classList.add('winner');
+            document.querySelector('.dice').style.display='none';
+            document.querySelector('.btn-roll').style.display='none';
+            document.querySelector('.btn-roll').style.display='none';
             
         }
 
@@ -100,17 +108,9 @@ function hld()
 
 function player_change()
     {
-        if(current_player===0)
-           {
-                 document.querySelector('.player-0-panel').classList.toggle('active');
-               document.querySelector('.player-1-panel').classList.toggle('active');
-               
-           }
-        else if (current_player===1)
-            {
-                document.querySelector('.player-0-panel').classList.toggle('active');
-               document.querySelector('.player-1-panel').classList.toggle('active');
-            }
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+
     }
 
 
